@@ -1,0 +1,15 @@
+LexiNote dictionary sources
+
+Chinese and offline English definitions: ECDICT
+https://github.com/skywind3000/ECDICT
+MIT license is included as ECDICT-LICENSE in this app.
+
+Primary online English definitions: Free Dictionary API
+https://dictionaryapi.dev/
+
+Fallback online English definitions: EnglishDictionaryAPI
+https://englishdictionaryapi.com/
+Its content is derived from the English Wiktionary dump and licensed under
+Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+https://en.wiktionary.org/
+https://creativecommons.org/licenses/by-sa/4.0/

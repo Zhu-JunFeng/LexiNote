@@ -1,0 +1,526 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		28A13AC6753AC87E558B1633 /* ReviewSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44801EB83DE28BABA90B6DBC /* ReviewSchedulerTests.swift */; };
+		3857031132B64334FDD20149 /* VocabWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844397703A8F366E46D91810 /* VocabWord.swift */; };
+		3BF5E0D0E506C82B75283B9B /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF3E21AA7F058F4C7A09E5F /* ReviewView.swift */; };
+		56D041897F82E6B42348D8B8 /* DICTIONARY-SOURCES.txt in Resources */ = {isa = PBXBuildFile; fileRef = E30872426B54A12E537B5133 /* DICTIONARY-SOURCES.txt */; };
+		7A3F4D6C67134C07B8C4BB02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A3F4D6C67134C07B8C4BB01 /* Assets.xcassets */; };
+		6D937B5BBE67BFC5E2175499 /* ReviewScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C1ECD8CFB2A13F52A937CD /* ReviewScheduler.swift */; };
+		83F7D3C7EA3AC81A856F029D /* DictionaryAndBackupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDA14643F0F1438A2082633 /* DictionaryAndBackupTests.swift */; };
+		9647864FBFDC73082B1452A8 /* ECDICT-LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 9A6E0A093BFED264F32467FB /* ECDICT-LICENSE */; };
+		A2104B146EAAB789C7AC67F5 /* ecdict.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 1F7C025CC9149F8FFD7035E8 /* ecdict.sqlite */; };
+		A2506E97B9398FB37E8BC8B5 /* GlobalHotkey.swift in Sources */ = {isa = PBXBuildFile; fileRef = F009799E920891A265FE8214 /* GlobalHotkey.swift */; };
+		A6F737581C27DA949F9BD663 /* AppRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A97098F802036A8547B7C05 /* AppRuntime.swift */; };
+		A78E1B7E668A3BF066F1AD20 /* MenuBarViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EA2E491C0FE477187728D1 /* MenuBarViews.swift */; };
+		ABB02DBC3BCE6AB38D245CF8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC5B84967FFF02A40D30C9A /* SettingsView.swift */; };
+		B4572C0939F29DA5ED19F370 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5665AC210C62207A5E19214E /* LibraryView.swift */; };
+		D3DAB901F84B40008CA5D502 /* LexiStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DAB901F84B40008CA5D501 /* LexiStyle.swift */; };
+		F6C2DA1BA97A42A9A0521BA2 /* AppShellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6C2DA1BA97A42A9A0521BA1 /* AppShellView.swift */; };
+		A5C591D635A04F7291A70002 /* RecommendationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C591D635A04F7291A70001 /* RecommendationService.swift */; };
+		A5C591D635A04F7291A70004 /* RecommendationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C591D635A04F7291A70003 /* RecommendationView.swift */; };
+		B6913FC9A5584AEF6AD96A56 /* DictionaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5C1FF5DE557E4A2EBBAA2C /* DictionaryService.swift */; };
+		B800D4461A2133144CD1B6D9 /* AppRuntimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF4586B260F8D946F4FCF81 /* AppRuntimeTests.swift */; };
+		C0616255205BD8ADD0D1524C /* BackupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA02E1BEFBB0794FD7331C27 /* BackupService.swift */; };
+		D5DE63E2F29E0DA12026825A /* LexiNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0847FEA6CB6802423171E78D /* LexiNoteApp.swift */; };
+		E6E95C779BBF65ACCD399C17 /* LookupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C76AB6D732969252CC86A7 /* LookupView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		510A7C63743521D34EA859E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7FFBF28FAD555BACE5B0860C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E57F2AA9C77E0F23DB93BAF0;
+			remoteInfo = LexiNote;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0847FEA6CB6802423171E78D /* LexiNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LexiNoteApp.swift; sourceTree = "<group>"; };
+		0F5C1FF5DE557E4A2EBBAA2C /* DictionaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryService.swift; sourceTree = "<group>"; };
+		0FC5B84967FFF02A40D30C9A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		1BF4586B260F8D946F4FCF81 /* AppRuntimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRuntimeTests.swift; sourceTree = "<group>"; };
+		1F7C025CC9149F8FFD7035E8 /* ecdict.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = ecdict.sqlite; sourceTree = "<group>"; };
+		7A3F4D6C67134C07B8C4BB01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2DDD8B17C9C9DB8050284800 /* LexiNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LexiNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EDA14643F0F1438A2082633 /* DictionaryAndBackupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryAndBackupTests.swift; sourceTree = "<group>"; };
+		42C76AB6D732969252CC86A7 /* LookupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookupView.swift; sourceTree = "<group>"; };
+		44801EB83DE28BABA90B6DBC /* ReviewSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSchedulerTests.swift; sourceTree = "<group>"; };
+		53C1ECD8CFB2A13F52A937CD /* ReviewScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewScheduler.swift; sourceTree = "<group>"; };
+		5665AC210C62207A5E19214E /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		D3DAB901F84B40008CA5D501 /* LexiStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LexiStyle.swift; sourceTree = "<group>"; };
+		F6C2DA1BA97A42A9A0521BA1 /* AppShellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppShellView.swift; sourceTree = "<group>"; };
+		A5C591D635A04F7291A70001 /* RecommendationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationService.swift; sourceTree = "<group>"; };
+		A5C591D635A04F7291A70003 /* RecommendationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationView.swift; sourceTree = "<group>"; };
+		5A97098F802036A8547B7C05 /* AppRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRuntime.swift; sourceTree = "<group>"; };
+		844397703A8F366E46D91810 /* VocabWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabWord.swift; sourceTree = "<group>"; };
+		9A6E0A093BFED264F32467FB /* ECDICT-LICENSE */ = {isa = PBXFileReference; path = "ECDICT-LICENSE"; sourceTree = "<group>"; };
+		BA02E1BEFBB0794FD7331C27 /* BackupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupService.swift; sourceTree = "<group>"; };
+		BFF3E21AA7F058F4C7A09E5F /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
+		C0F6A735F6BD867EF32C1993 /* LexiNoteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LexiNoteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1EA2E491C0FE477187728D1 /* MenuBarViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarViews.swift; sourceTree = "<group>"; };
+		E30872426B54A12E537B5133 /* DICTIONARY-SOURCES.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "DICTIONARY-SOURCES.txt"; sourceTree = "<group>"; };
+		F009799E920891A265FE8214 /* GlobalHotkey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalHotkey.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		18D7984B891B39FA3EB04CD9 /* LexiNoteTests */ = {
+			isa = PBXGroup;
+			children = (
+				1BF4586B260F8D946F4FCF81 /* AppRuntimeTests.swift */,
+				2EDA14643F0F1438A2082633 /* DictionaryAndBackupTests.swift */,
+				44801EB83DE28BABA90B6DBC /* ReviewSchedulerTests.swift */,
+			);
+			path = LexiNoteTests;
+			sourceTree = "<group>";
+		};
+		22C0E1A67AC68622BAD7AFDA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2DDD8B17C9C9DB8050284800 /* LexiNote.app */,
+				C0F6A735F6BD867EF32C1993 /* LexiNoteTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3C0D7ACCF7FDE7FD18F525AC /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BA02E1BEFBB0794FD7331C27 /* BackupService.swift */,
+				0F5C1FF5DE557E4A2EBBAA2C /* DictionaryService.swift */,
+				F009799E920891A265FE8214 /* GlobalHotkey.swift */,
+				A5C591D635A04F7291A70001 /* RecommendationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		489A5789644ADA1B45317721 /* Licenses */ = {
+			isa = PBXGroup;
+			children = (
+				9A6E0A093BFED264F32467FB /* ECDICT-LICENSE */,
+			);
+			path = Licenses;
+			sourceTree = "<group>";
+		};
+		57E0379410EE148B4FE912B6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F6C2DA1BA97A42A9A0521BA1 /* AppShellView.swift */,
+				D3DAB901F84B40008CA5D501 /* LexiStyle.swift */,
+				5665AC210C62207A5E19214E /* LibraryView.swift */,
+				42C76AB6D732969252CC86A7 /* LookupView.swift */,
+				E1EA2E491C0FE477187728D1 /* MenuBarViews.swift */,
+				BFF3E21AA7F058F4C7A09E5F /* ReviewView.swift */,
+				A5C591D635A04F7291A70003 /* RecommendationView.swift */,
+				0FC5B84967FFF02A40D30C9A /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		588FBA26AC7E90D62C00ECE1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7A3F4D6C67134C07B8C4BB01 /* Assets.xcassets */,
+				E30872426B54A12E537B5133 /* DICTIONARY-SOURCES.txt */,
+				1F7C025CC9149F8FFD7035E8 /* ecdict.sqlite */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		619B500CEA39FC54EC16F665 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				53C1ECD8CFB2A13F52A937CD /* ReviewScheduler.swift */,
+				844397703A8F366E46D91810 /* VocabWord.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7300E3A5A370348061876953 /* LexiNote */ = {
+			isa = PBXGroup;
+			children = (
+				5A97098F802036A8547B7C05 /* AppRuntime.swift */,
+				0847FEA6CB6802423171E78D /* LexiNoteApp.swift */,
+				619B500CEA39FC54EC16F665 /* Models */,
+				588FBA26AC7E90D62C00ECE1 /* Resources */,
+				3C0D7ACCF7FDE7FD18F525AC /* Services */,
+				57E0379410EE148B4FE912B6 /* Views */,
+			);
+			path = LexiNote;
+			sourceTree = "<group>";
+		};
+		904333EFF37D2FE6A08B17F4 = {
+			isa = PBXGroup;
+			children = (
+				7300E3A5A370348061876953 /* LexiNote */,
+				18D7984B891B39FA3EB04CD9 /* LexiNoteTests */,
+				489A5789644ADA1B45317721 /* Licenses */,
+				22C0E1A67AC68622BAD7AFDA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CECDAF4966976E30C8920C1F /* LexiNoteTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3C8C9322ECEBFC813E8271E4 /* Build configuration list for PBXNativeTarget "LexiNoteTests" */;
+			buildPhases = (
+				B0EC59F67B79AC8C0954ABD2 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				36B97C5FFCA066562D6F86F5 /* PBXTargetDependency */,
+			);
+			name = LexiNoteTests;
+			packageProductDependencies = (
+			);
+			productName = LexiNoteTests;
+			productReference = C0F6A735F6BD867EF32C1993 /* LexiNoteTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E57F2AA9C77E0F23DB93BAF0 /* LexiNote */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9E2CC66415FBE46BABBF6827 /* Build configuration list for PBXNativeTarget "LexiNote" */;
+			buildPhases = (
+				C47378EA5E18076EE85EAD2C /* Sources */,
+				A7B1071A3E092B45E446FFB4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LexiNote;
+			packageProductDependencies = (
+			);
+			productName = LexiNote;
+			productReference = 2DDD8B17C9C9DB8050284800 /* LexiNote.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7FFBF28FAD555BACE5B0860C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 35F911AF41B230448FAE310A /* Build configuration list for PBXProject "LexiNote" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 904333EFF37D2FE6A08B17F4;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 22C0E1A67AC68622BAD7AFDA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E57F2AA9C77E0F23DB93BAF0 /* LexiNote */,
+				CECDAF4966976E30C8920C1F /* LexiNoteTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A7B1071A3E092B45E446FFB4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A3F4D6C67134C07B8C4BB02 /* Assets.xcassets in Resources */,
+				56D041897F82E6B42348D8B8 /* DICTIONARY-SOURCES.txt in Resources */,
+				9647864FBFDC73082B1452A8 /* ECDICT-LICENSE in Resources */,
+				A2104B146EAAB789C7AC67F5 /* ecdict.sqlite in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B0EC59F67B79AC8C0954ABD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B800D4461A2133144CD1B6D9 /* AppRuntimeTests.swift in Sources */,
+				83F7D3C7EA3AC81A856F029D /* DictionaryAndBackupTests.swift in Sources */,
+				28A13AC6753AC87E558B1633 /* ReviewSchedulerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C47378EA5E18076EE85EAD2C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A6F737581C27DA949F9BD663 /* AppRuntime.swift in Sources */,
+				C0616255205BD8ADD0D1524C /* BackupService.swift in Sources */,
+				B6913FC9A5584AEF6AD96A56 /* DictionaryService.swift in Sources */,
+				A2506E97B9398FB37E8BC8B5 /* GlobalHotkey.swift in Sources */,
+				A5C591D635A04F7291A70002 /* RecommendationService.swift in Sources */,
+				D5DE63E2F29E0DA12026825A /* LexiNoteApp.swift in Sources */,
+				B4572C0939F29DA5ED19F370 /* LibraryView.swift in Sources */,
+				D3DAB901F84B40008CA5D502 /* LexiStyle.swift in Sources */,
+				F6C2DA1BA97A42A9A0521BA2 /* AppShellView.swift in Sources */,
+				E6E95C779BBF65ACCD399C17 /* LookupView.swift in Sources */,
+				A78E1B7E668A3BF066F1AD20 /* MenuBarViews.swift in Sources */,
+				6D937B5BBE67BFC5E2175499 /* ReviewScheduler.swift in Sources */,
+				3BF5E0D0E506C82B75283B9B /* ReviewView.swift in Sources */,
+				A5C591D635A04F7291A70004 /* RecommendationView.swift in Sources */,
+				ABB02DBC3BCE6AB38D245CF8 /* SettingsView.swift in Sources */,
+				3857031132B64334FDD20149 /* VocabWord.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		36B97C5FFCA066562D6F86F5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E57F2AA9C77E0F23DB93BAF0 /* LexiNote */;
+			targetProxy = 510A7C63743521D34EA859E9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		45740F95DA12B6AFE2246AE2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhujf.LexiNoteTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LexiNote.app/Contents/MacOS/LexiNote";
+			};
+			name = Debug;
+		};
+		73FF3E2B85850C28704411B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhujf.LexiNoteTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LexiNote.app/Contents/MacOS/LexiNote";
+			};
+			name = Release;
+		};
+		AAC0C37150C04A26BDCB9C81 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "$(inherited) -lsqlite3";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		CE84308AFBDA8558CB2C50B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = LexiNote;
+				INFOPLIST_KEY_LSUIElement = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhujf.LexiNote;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		E4499F8E11DCDF8FEB2A26CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "$(inherited) -lsqlite3";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		F8B0D8DCA51D311AA1F10D93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = LexiNote;
+				INFOPLIST_KEY_LSUIElement = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhujf.LexiNote;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		35F911AF41B230448FAE310A /* Build configuration list for PBXProject "LexiNote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAC0C37150C04A26BDCB9C81 /* Debug */,
+				E4499F8E11DCDF8FEB2A26CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		3C8C9322ECEBFC813E8271E4 /* Build configuration list for PBXNativeTarget "LexiNoteTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45740F95DA12B6AFE2246AE2 /* Debug */,
+				73FF3E2B85850C28704411B0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9E2CC66415FBE46BABBF6827 /* Build configuration list for PBXNativeTarget "LexiNote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F8B0D8DCA51D311AA1F10D93 /* Debug */,
+				CE84308AFBDA8558CB2C50B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7FFBF28FAD555BACE5B0860C /* Project object */;
+}
