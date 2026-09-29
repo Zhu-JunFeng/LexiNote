@@ -37,8 +37,6 @@ LexiNote 是一款 macOS 菜单栏查词与复习应用。默认按 **⌃⌥L** 
 
 内置的 `LexiNote/Resources/ecdict.sqlite` 从 [ECDICT](https://github.com/skywind3000/ECDICT) 固定版本生成，包含约 77 万条词目；许可文本见 `Licenses/ECDICT-LICENSE`，并随应用打包。需要重新生成数据库时运行 `python3 Scripts/build_ecdict.py`，脚本会校验源 CSV 的 SHA-256。英文在线结果优先来自 [Free Dictionary API](https://dictionaryapi.dev/)，失败时回退到 [EnglishDictionaryAPI](https://englishdictionaryapi.com/)；后者使用 [Wiktionary 的 CC BY-SA 4.0 内容](https://creativecommons.org/licenses/by-sa/4.0/)。词典来源说明随应用打包；网络不可用时，内置词典和已保存的词卡仍可查看。
 
-若之后公开分发，请先复核第三方词典及音频内容的授权与署名要求。
-
 ## 后续方向
 
 下一阶段计划考虑跨应用选词直查、原句挖空复习、每日目标和常忘词筛选。再之后可加入拼写与听音测试、Anki 导出、iCloud 同步以及近义词辨析和造句反馈。这些功能尚未包含在第一版。
