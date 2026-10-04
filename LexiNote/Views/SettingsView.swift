@@ -8,6 +8,7 @@ struct SettingsView: View {
     @AppStorage("LexiNote.autoRecordToLibrary") private var autoRecordToLibrary = true
     @State private var isRecording = false
     @State private var isRecordingSave = false
+    @State private var isRecordingRecommendation = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -46,6 +47,7 @@ struct SettingsView: View {
                 Button(isRecording ? "请按组合键…" : runtime.shortcut.displayString) {
                     isRecording = true
                     isRecordingSave = false
+                    isRecordingRecommendation = false
                 }
                 .frame(minWidth: 130)
                 ShortcutRecorder(isRecording: $isRecording) { shortcut in
@@ -66,6 +68,7 @@ struct SettingsView: View {
                 Button(isRecordingSave ? "请按组合键…" : runtime.saveShortcut.displayString) {
                     isRecordingSave = true
                     isRecording = false
+                    isRecordingRecommendation = false
                 }
                 .frame(minWidth: 130)
                 ShortcutRecorder(isRecording: $isRecordingSave) { shortcut in
@@ -96,6 +99,26 @@ struct SettingsView: View {
                 }
             }
             .toggleStyle(.switch)
+            HStack(spacing: 14) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("立即推荐单词")
+                        .font(.callout.weight(.medium))
+                    Text(recommendations.isEnabled ? "在其他应用中也可立即发送一条推荐通知" : "开启随机推荐通知后生效")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                Spacer()
+                Button(isRecordingRecommendation ? "请按组合键…" : runtime.recommendationShortcut.displayString) {
+                    isRecordingRecommendation = true
+                    isRecording = false
+                    isRecordingSave = false
+                }
+                .frame(minWidth: 130)
+                ShortcutRecorder(isRecording: $isRecordingRecommendation) { shortcut in
+                    runtime.updateRecommendationShortcut(shortcut)
+                }
+                .frame(width: 1, height: 1)
+            }
             if let status = recommendations.statusMessage {
                 Text(status).font(.caption).foregroundStyle(.red)
             }
@@ -105,10 +128,13 @@ struct SettingsView: View {
         .background(LexiStyle.canvas)
         .tint(LexiStyle.accent)
         .onChange(of: isRecording) { _, recording in
-            runtime.isRecordingShortcut = recording || isRecordingSave
+            runtime.isRecordingShortcut = recording || isRecordingSave || isRecordingRecommendation
         }
         .onChange(of: isRecordingSave) { _, recording in
-            runtime.isRecordingShortcut = recording || isRecording
+            runtime.isRecordingShortcut = recording || isRecording || isRecordingRecommendation
+        }
+        .onChange(of: isRecordingRecommendation) { _, recording in
+            runtime.isRecordingShortcut = recording || isRecording || isRecordingSave
         }
         .onDisappear { runtime.isRecordingShortcut = false }
     }

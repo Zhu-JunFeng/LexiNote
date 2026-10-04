@@ -14,6 +14,10 @@ struct HotkeyShortcut: Codable, Equatable, Sendable {
         keyCode: UInt32(kVK_ANSI_S),
         modifiers: UInt32(controlKey | optionKey)
     )
+    static let defaultRecommendationShortcut = HotkeyShortcut(
+        keyCode: UInt32(kVK_ANSI_R),
+        modifiers: UInt32(controlKey | optionKey)
+    )
 
     var displayString: String {
         var result = ""
@@ -88,7 +92,7 @@ enum HotkeyError: LocalizedError {
         case .registrationFailed(let status):
             return "无法注册快捷键，可能已被其他应用占用（错误 \(status)）。"
         case .duplicateShortcut:
-            return "两个全局快捷键不能相同。"
+            return "全局快捷键不能相同。"
         }
     }
 }
@@ -96,6 +100,7 @@ enum HotkeyError: LocalizedError {
 enum HotkeyAction: UInt32, CaseIterable {
     case lookup = 1
     case save = 2
+    case recommendation = 3
 }
 
 /// Registers an application-wide hotkey with Carbon. Call from the main actor.
@@ -167,6 +172,15 @@ final class HotkeyManager {
         }
         registrations[action] = Registration(reference: newHotkey, id: id,
                                              shortcut: shortcut, onPress: onPress)
+    }
+
+    func unregister(action: HotkeyAction) {
+        guard let registration = registrations.removeValue(forKey: action) else { return }
+        UnregisterEventHotKey(registration.reference)
+        if registrations.isEmpty, let handler {
+            RemoveEventHandler(handler)
+            self.handler = nil
+        }
     }
 
     func unregister() {

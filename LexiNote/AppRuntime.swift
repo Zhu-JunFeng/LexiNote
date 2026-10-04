@@ -39,6 +39,7 @@ final class AppRuntime: ObservableObject {
 
     @Published private(set) var shortcut: HotkeyShortcut = .defaultShortcut
     @Published private(set) var saveShortcut: HotkeyShortcut = .defaultSaveShortcut
+    @Published private(set) var recommendationShortcut: HotkeyShortcut = .defaultRecommendationShortcut
     @Published private(set) var hotkeyError: String?
     @Published private(set) var page: AppPage = .lookup
     @Published private(set) var lookupRequest: LookupRequest?
@@ -52,6 +53,8 @@ final class AppRuntime: ObservableObject {
     private var pageHistory: [AppPage] = []
     private let shortcutKey = "LexiNote.globalShortcut"
     private let saveShortcutKey = "LexiNote.globalSaveShortcut"
+    private let recommendationShortcutKey = "LexiNote.globalRecommendationShortcut"
+    private(set) var isRecommendationShortcutActive = false
     private var modelContext: ModelContext?
     private let dictionary = DictionaryService()
     private var saveInFlight: Set<String> = []
@@ -75,6 +78,10 @@ final class AppRuntime: ObservableObject {
         if let data = UserDefaults.standard.data(forKey: saveShortcutKey),
            let stored = try? JSONDecoder().decode(HotkeyShortcut.self, from: data) {
             saveShortcut = stored
+        }
+        if let data = UserDefaults.standard.data(forKey: recommendationShortcutKey),
+           let stored = try? JSONDecoder().decode(HotkeyShortcut.self, from: data) {
+            recommendationShortcut = stored
         }
         hotkeyError = nil
         register(.lookup, shortcut)
@@ -121,33 +128,73 @@ final class AppRuntime: ObservableObject {
         updateShortcut(.save, to: newShortcut)
     }
 
+    func updateRecommendationShortcut(_ newShortcut: HotkeyShortcut) {
+        updateShortcut(.recommendation, to: newShortcut)
+    }
+
+    func setRecommendationShortcutEnabled(_ enabled: Bool) {
+        guard enabled != isRecommendationShortcutActive else { return }
+        if enabled {
+            isRecommendationShortcutActive = register(.recommendation, recommendationShortcut)
+        } else {
+            hotkeyManager.unregister(action: .recommendation)
+            isRecommendationShortcutActive = false
+        }
+    }
+
     private func updateShortcut(_ action: HotkeyAction, to newShortcut: HotkeyShortcut) {
+        let configured: [HotkeyAction: HotkeyShortcut] = [
+            .lookup: shortcut, .save: saveShortcut, .recommendation: recommendationShortcut
+        ]
+        guard !configured.contains(where: { $0.key != action && $0.value == newShortcut }) else {
+            hotkeyError = HotkeyError.duplicateShortcut.localizedDescription
+            return
+        }
         do {
-            try hotkeyManager.register(action: action, shortcut: newShortcut) { [weak self] in
-                guard let self, !self.isRecordingShortcut else { return }
-                if action == .lookup { self.showLookupFromClipboard() }
-                else { self.saveFromClipboard() }
+            if action != .recommendation || isRecommendationShortcutActive {
+                try hotkeyManager.register(action: action, shortcut: newShortcut,
+                                           onPress: hotkeyHandler(for: action))
             }
-            if action == .lookup { shortcut = newShortcut }
-            else { saveShortcut = newShortcut }
+            switch action {
+            case .lookup: shortcut = newShortcut
+            case .save: saveShortcut = newShortcut
+            case .recommendation: recommendationShortcut = newShortcut
+            }
             hotkeyError = nil
             if let data = try? JSONEncoder().encode(newShortcut) {
-                UserDefaults.standard.set(data, forKey: action == .lookup ? shortcutKey : saveShortcutKey)
+                let key: String
+                switch action {
+                case .lookup: key = shortcutKey
+                case .save: key = saveShortcutKey
+                case .recommendation: key = recommendationShortcutKey
+                }
+                UserDefaults.standard.set(data, forKey: key)
             }
         } catch {
             hotkeyError = error.localizedDescription
         }
     }
 
-    private func register(_ action: HotkeyAction, _ value: HotkeyShortcut) {
+    @discardableResult
+    private func register(_ action: HotkeyAction, _ value: HotkeyShortcut) -> Bool {
         do {
-            try hotkeyManager.register(action: action, shortcut: value) { [weak self] in
-                guard let self, !self.isRecordingShortcut else { return }
-                if action == .lookup { self.showLookupFromClipboard() }
-                else { self.saveFromClipboard() }
-            }
+            try hotkeyManager.register(action: action, shortcut: value,
+                                       onPress: hotkeyHandler(for: action))
+            return true
         } catch {
             hotkeyError = error.localizedDescription
+            return false
+        }
+    }
+
+    private func hotkeyHandler(for action: HotkeyAction) -> () -> Void {
+        { [weak self] in
+            guard let self, !self.isRecordingShortcut else { return }
+            switch action {
+            case .lookup: self.showLookupFromClipboard()
+            case .save: self.saveFromClipboard()
+            case .recommendation: RecommendationService.shared.triggerNow()
+            }
         }
     }
 

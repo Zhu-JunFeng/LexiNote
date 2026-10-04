@@ -5,6 +5,10 @@ import XCTest
 
 @MainActor
 final class AppRuntimeTests: XCTestCase {
+    func testHostRunsWithIsolatedTestConfiguration() {
+        XCTAssertNotNil(ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"])
+    }
+
     func testLookupPanelOpensAndCloses() throws {
         let container = try ModelContainer(for: VocabWord.self, LookupCache.self,
                                            configurations: ModelConfiguration(isStoredInMemoryOnly: true))
@@ -78,6 +82,47 @@ final class AppRuntimeTests: XCTestCase {
         runtime.updateSaveShortcut(runtime.shortcut)
         XCTAssertEqual(runtime.saveShortcut, previous)
         XCTAssertNotNil(runtime.hotkeyError)
+
+        runtime.setRecommendationShortcutEnabled(false)
+        let previousRecommendation = runtime.recommendationShortcut
+        runtime.updateRecommendationShortcut(runtime.shortcut)
+        XCTAssertEqual(runtime.recommendationShortcut, previousRecommendation)
+        XCTAssertNotNil(runtime.hotkeyError)
+
+        let previousLookup = runtime.shortcut
+        runtime.updateShortcut(runtime.recommendationShortcut)
+        XCTAssertEqual(runtime.shortcut, previousLookup)
+        XCTAssertNotNil(runtime.hotkeyError)
+    }
+
+    func testRecommendationPreferenceMigrationPreservesExistingUsers() {
+        let suite = "LexiNoteTests.recommendation.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+
+        RecommendationPreferenceMigration.initializeIfNeeded(defaults: defaults, hasExistingData: true)
+        XCTAssertFalse(defaults.bool(forKey: RecommendationService.enabledKey))
+
+        defaults.set(true, forKey: RecommendationService.enabledKey)
+        RecommendationPreferenceMigration.initializeIfNeeded(defaults: defaults, hasExistingData: true)
+        XCTAssertTrue(defaults.bool(forKey: RecommendationService.enabledKey))
+
+        defaults.removeObject(forKey: RecommendationService.enabledKey)
+        RecommendationPreferenceMigration.initializeIfNeeded(defaults: defaults, hasExistingData: false)
+        XCTAssertTrue(defaults.bool(forKey: RecommendationService.enabledKey))
+    }
+
+    func testRecommendationHotkeyRegistrationFollowsSwitch() throws {
+        let container = try ModelContainer(for: VocabWord.self, LookupCache.self,
+                                           configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        let runtime = AppRuntime.shared
+        runtime.start(container: container)
+        runtime.setRecommendationShortcutEnabled(false)
+        XCTAssertFalse(runtime.isRecommendationShortcutActive)
+        runtime.setRecommendationShortcutEnabled(true)
+        XCTAssertTrue(runtime.isRecommendationShortcutActive, runtime.hotkeyError ?? "")
+        runtime.setRecommendationShortcutEnabled(false)
+        XCTAssertFalse(runtime.isRecommendationShortcutActive)
     }
 
     func testNotificationRoutesToRecommendedOrSavedWord() {

@@ -49,5 +49,9 @@ final class ReviewSchedulerTests: XCTestCase {
         XCTAssertTrue(cadence.tick(isActive: true, nextTarget: { 120 }))
         XCTAssertEqual(cadence.activeMinutes, 0)
         XCTAssertEqual(cadence.targetMinutes, 120)
+        for _ in 0..<12 { XCTAssertFalse(cadence.tick(isActive: true)) }
+        cadence.reset(nextTarget: { 45 })
+        XCTAssertEqual(cadence.activeMinutes, 0)
+        XCTAssertEqual(cadence.targetMinutes, 45)
     }
 }

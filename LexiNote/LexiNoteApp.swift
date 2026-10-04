@@ -7,11 +7,21 @@ struct LexiNoteApp: App {
     private let modelContainer: ModelContainer
 
     init() {
-        let container = try! ModelContainer(for: VocabWord.self, LookupCache.self)
+        let isTesting = ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+        if !isTesting { RecommendationPreferenceMigration.initializeIfNeeded() }
+        let container: ModelContainer
+        if isTesting {
+            container = try! ModelContainer(for: VocabWord.self, LookupCache.self,
+                                            configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        } else {
+            container = try! ModelContainer(for: VocabWord.self, LookupCache.self)
+        }
         modelContainer = container
-        Task { @MainActor in
-            AppRuntime.shared.start(container: container)
-            RecommendationService.shared.start(container: container)
+        if !isTesting {
+            Task { @MainActor in
+                AppRuntime.shared.start(container: container)
+                RecommendationService.shared.start(container: container)
+            }
         }
     }
 

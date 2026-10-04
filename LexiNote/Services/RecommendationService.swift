@@ -1,5 +1,6 @@
 import AppKit
 import CoreGraphics
+import SQLite3
 import SwiftData
 import UserNotifications
 
@@ -20,6 +21,45 @@ struct RecommendationCadence {
         targetMinutes = nextTarget()
         return true
     }
+
+    mutating func reset(nextTarget: () -> Int = { Int.random(in: 30...120) }) {
+        activeMinutes = 0
+        targetMinutes = nextTarget()
+    }
+}
+
+/// The old app did not write the default-off preference until the user changed it.
+/// Check for its store before SwiftData creates a new one so upgrades stay off.
+enum RecommendationPreferenceMigration {
+    static let enabledKey = "LexiNote.recommendationsEnabled"
+
+    static func initializeIfNeeded(defaults: UserDefaults = .standard,
+                                   hasExistingData: Bool? = nil) {
+        guard defaults.object(forKey: enabledKey) == nil else { return }
+        defaults.set(!(hasExistingData ?? existingInstallation(defaults: defaults)),
+                     forKey: enabledKey)
+    }
+
+    private static func existingInstallation(defaults: UserDefaults) -> Bool {
+        let previousKeys = ["LexiNote.globalShortcut", "LexiNote.globalSaveShortcut",
+                            "LexiNote.autoRecordToLibrary", "LexiNote.recentRecommendations",
+                            "LexiNote.lastRecommendationKind"]
+        if previousKeys.contains(where: { defaults.object(forKey: $0) != nil }) { return true }
+        guard let support = FileManager.default.urls(for: .applicationSupportDirectory,
+                                                      in: .userDomainMask).first else { return false }
+        let path = support.appendingPathComponent("default.store").path
+        var database: OpaquePointer?
+        guard sqlite3_open_v2(path, &database, SQLITE_OPEN_READONLY, nil) == SQLITE_OK else {
+            if let database { sqlite3_close(database) }
+            return false
+        }
+        defer { sqlite3_close(database) }
+        var statement: OpaquePointer?
+        let query = "SELECT 1 FROM sqlite_master WHERE type='table' AND name='ZVOCABWORD' LIMIT 1"
+        guard sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK else { return false }
+        defer { sqlite3_finalize(statement) }
+        return sqlite3_step(statement) == SQLITE_ROW
+    }
 }
 
 enum RecommendationNotificationRoute {
@@ -36,7 +76,7 @@ enum RecommendationNotificationRoute {
 @MainActor
 final class RecommendationService: NSObject, ObservableObject, UNUserNotificationCenterDelegate {
     static let shared = RecommendationService()
-    static let enabledKey = "LexiNote.recommendationsEnabled"
+    static let enabledKey = RecommendationPreferenceMigration.enabledKey
 
     @Published private(set) var isEnabled = UserDefaults.standard.bool(forKey: enabledKey)
     @Published private(set) var statusMessage: String?
@@ -47,6 +87,7 @@ final class RecommendationService: NSObject, ObservableObject, UNUserNotificatio
     private var cadence = RecommendationCadence()
     private var screenAwake = true
     private var sessionActive = true
+    private var isSending = false
     private var observers: [NSObjectProtocol] = []
     private var authorizationRequestID = UUID()
     private let recentKey = "LexiNote.recentRecommendations"
@@ -61,6 +102,7 @@ final class RecommendationService: NSObject, ObservableObject, UNUserNotificatio
     func start(container: ModelContainer) {
         guard modelContext == nil else { return }
         modelContext = container.mainContext
+        isEnabled = UserDefaults.standard.bool(forKey: Self.enabledKey)
         let workspace = NSWorkspace.shared.notificationCenter
         for (name, awake) in [(NSWorkspace.screensDidSleepNotification, false),
                               (NSWorkspace.screensDidWakeNotification, true)] {
@@ -78,9 +120,14 @@ final class RecommendationService: NSObject, ObservableObject, UNUserNotificatio
             center.getNotificationSettings { [weak self] settings in
                 Task { @MainActor in
                     guard let self else { return }
-                    if settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional {
+                    guard self.isEnabled else { return }
+                    switch settings.authorizationStatus {
+                    case .authorized, .provisional:
                         self.startTimer()
-                    } else {
+                        AppRuntime.shared.setRecommendationShortcutEnabled(true)
+                    case .notDetermined:
+                        self.setEnabled(true)
+                    default:
                         self.disable(message: "系统通知未获允许，请在系统设置中开启后重试。")
                     }
                 }
@@ -105,6 +152,7 @@ final class RecommendationService: NSObject, ObservableObject, UNUserNotificatio
                 statusMessage = nil
                 cadence = RecommendationCadence()
                 startTimer()
+                AppRuntime.shared.setRecommendationShortcutEnabled(true)
             } catch {
                 guard authorizationRequestID == requestID else { return }
                 disable(message: "无法开启通知：\(error.localizedDescription)")
@@ -119,7 +167,8 @@ final class RecommendationService: NSObject, ObservableObject, UNUserNotificatio
         statusMessage = message
         timer?.invalidate()
         timer = nil
-        center.removePendingNotificationRequests(withIdentifiers: ["LexiNote.recommendation"])
+        AppRuntime.shared.setRecommendationShortcutEnabled(false)
+        center.removeAllPendingNotificationRequests()
     }
 
     private func startTimer() {
@@ -138,13 +187,39 @@ final class RecommendationService: NSObject, ObservableObject, UNUserNotificatio
         let onConsole = session?["kCGSSessionOnConsoleKey"] as? Bool ?? true
         let active = screenAwake && sessionActive && onConsole && !locked && idle < 5 * 60
         guard cadence.tick(isActive: active) else { return }
-        Task { await sendRecommendation() }
+        requestRecommendation(manual: false)
+    }
+
+    func triggerNow() {
+        requestRecommendation(manual: true)
+    }
+
+    private func requestRecommendation(manual: Bool) {
+        guard isEnabled, !isSending else { return }
+        isSending = true
+        Task {
+            defer { isSending = false }
+            let settings = await center.notificationSettings()
+            guard settings.authorizationStatus == .authorized ||
+                    settings.authorizationStatus == .provisional else {
+                disable(message: "系统通知未获允许，请在系统设置中开启后重试。")
+                return
+            }
+            let delivered = await sendRecommendation()
+            guard isEnabled else { return }
+            if delivered {
+                statusMessage = nil
+                if manual { cadence.reset() }
+            } else if manual && statusMessage == nil {
+                statusMessage = "暂时没有符合条件的推荐词。"
+            }
+        }
     }
 
     private enum Kind: String { case newWord, review }
 
-    private func sendRecommendation() async {
-        guard isEnabled, let modelContext else { return }
+    private func sendRecommendation() async -> Bool {
+        guard isEnabled, let modelContext else { return false }
         let saved = (try? modelContext.fetch(FetchDescriptor<VocabWord>())) ?? []
         let lastKind = Kind(rawValue: UserDefaults.standard.string(forKey: lastKindKey) ?? "")
         let preferred: Kind = lastKind == .newWord ? .review : .newWord
@@ -162,9 +237,9 @@ final class RecommendationService: NSObject, ObservableObject, UNUserNotificatio
                 content.title = "复习一下 · \(word.term)"
                 content.body = "点击查看词卡，先回想它的意思。"
                 content.userInfo = ["kind": kind.rawValue, "id": word.id.uuidString, "term": word.term]
-                guard await deliver(content) else { return }
+                guard await deliver(content) else { return false }
                 record("review:\(word.id.uuidString)", kind: kind)
-                return
+                return true
             case .newWord:
                 let savedTerms = Set(saved.map(\.normalizedTerm))
                 let candidates = Self.candidateTerms.shuffled().filter { term in
@@ -179,16 +254,18 @@ final class RecommendationService: NSObject, ObservableObject, UNUserNotificatio
                     content.title = "推荐新词 · \(entry.term)"
                     content.body = entry.chineseDefinitions.first ?? entry.englishSenses.first?.englishDefinition ?? "点击查看释义"
                     content.userInfo = ["kind": kind.rawValue, "term": entry.term]
-                    guard await deliver(content) else { return }
+                    guard await deliver(content) else { return false }
                     record("new:\(term)", kind: kind)
-                    return
+                    return true
                 }
             }
         }
+        return false
     }
 
     private func deliver(_ content: UNMutableNotificationContent) async -> Bool {
-        let request = UNNotificationRequest(identifier: "LexiNote.recommendation", content: content,
+        guard isEnabled else { return false }
+        let request = UNNotificationRequest(identifier: "LexiNote.recommendation.\(UUID().uuidString)", content: content,
                                             trigger: UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false))
         do {
             try await center.add(request)
