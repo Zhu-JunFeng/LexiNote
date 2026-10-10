@@ -13,3 +13,14 @@ Its content is derived from the English Wiktionary dump and licensed under
 Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
 https://en.wiktionary.org/
 https://creativecommons.org/licenses/by-sa/4.0/
+
+Offline Cantonese word definitions: CC-Canto, version 2017-02-02
+Copyright (c) 2015-17 Pleco Inc.
+https://cc-canto.org/
+Creative Commons Attribution-ShareAlike 3.0 Unported license is included as
+CC-CANTO-LICENSE in this app. The unmodified source file is cccanto.txt.
+
+Online Taiwanese Hokkien word definitions: MoeDict, based on the Ministry of
+Education Dictionary of Frequently-Used Taiwanese Taigi.
+https://www.moedict.tw/
+https://sutian.moe.edu.tw/

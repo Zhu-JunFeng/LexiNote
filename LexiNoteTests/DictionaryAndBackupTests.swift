@@ -3,6 +3,23 @@ import XCTest
 @testable import LexiNote
 
 final class DictionaryAndBackupTests: XCTestCase {
+    func testBundledCantoneseDictionaryFindsColloquialTerm() async {
+        let entry = await DialectDictionaryService().lookup("唔該", dialect: .cantonese)
+        XCTAssertEqual(entry?.term, "唔該")
+        XCTAssertEqual(entry?.pronunciation, "m4 goi1")
+        XCTAssertTrue(entry?.definitions.contains(where: { $0.contains("thanks") }) == true)
+    }
+
+    func testHokkienDictionaryReadsPronunciationAndMeaning() async {
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.protocolClasses = [StubHokkienURLProtocol.self]
+        let service = DialectDictionaryService(session: URLSession(configuration: configuration))
+        let entry = await service.lookup("食", dialect: .taiwaneseHokkien)
+        XCTAssertEqual(entry?.pronunciation, "tsia̍h")
+        XCTAssertEqual(entry?.definitions.first, "吃。")
+        XCTAssertEqual(entry?.sourceURL.host, "www.moedict.tw")
+    }
+
     func testBundledDictionaryReturnsChineseAndEnglishOffline() async {
         let service = DictionaryService()
         let entry = await service.localEntry(term: "apple")
@@ -90,6 +107,19 @@ final class DictionaryAndBackupTests: XCTestCase {
         XCTAssertEqual(words.first?.chineseMeaning, "韧性")
         XCTAssertEqual(words.first?.example, "She showed resilience.")
     }
+}
+
+private final class StubHokkienURLProtocol: URLProtocol {
+    override class func canInit(with request: URLRequest) -> Bool { true }
+    override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }
+    override func startLoading() {
+        let response = HTTPURLResponse(url: request.url!, statusCode: 200,
+                                       httpVersion: "HTTP/1.1", headerFields: nil)!
+        client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+        client?.urlProtocol(self, didLoad: Data(#"{"h":[{"T":"tsia̍h","d":[{"f":"`吃~。"}]}]}"#.utf8))
+        client?.urlProtocolDidFinishLoading(self)
+    }
+    override func stopLoading() {}
 }
 
 private final class StubDictionaryURLProtocol: URLProtocol {

@@ -46,6 +46,10 @@ struct AppShellView: View {
         switch runtime.page {
         case .lookup:
             EmptyView()
+        case .translation:
+            TranslationView()
+        case .dialectDictionary:
+            DialectDictionaryView()
         case .library:
             LibraryView()
         case .review:

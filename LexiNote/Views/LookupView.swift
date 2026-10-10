@@ -83,6 +83,11 @@ struct LookupView: View {
                     .font(.caption)
                     .foregroundStyle(LexiStyle.accent)
                     .help("打开单词本")
+                Button("翻译") { runtime.push(.translation) }
+                    .buttonStyle(.plain)
+                    .font(.caption)
+                    .foregroundStyle(LexiStyle.accent)
+                    .help("打开多语言翻译")
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 18)

@@ -32,6 +32,9 @@ struct MenuBarContentView: View {
         Button("查单词") {
             AppRuntime.shared.showLookup()
         }
+        Button("多语言翻译") {
+            AppRuntime.shared.open(.translation)
+        }
         Button("单词本") {
             AppRuntime.shared.open(.library)
         }

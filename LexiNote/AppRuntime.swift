@@ -4,6 +4,8 @@ import SwiftUI
 
 enum AppPage: Equatable {
     case lookup
+    case translation
+    case dialectDictionary
     case library
     case review
     case preferences

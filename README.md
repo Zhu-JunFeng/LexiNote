@@ -19,7 +19,7 @@ LexiNote 是一款 macOS 菜单栏查词与复习应用。默认按 **⌃⌥L** 
   open Build/DerivedData/Build/Products/Debug/LexiNote.app
   ```
 
-应用没有 Dock 图标，启动后在菜单栏显示书签图标与待复习数量。查词、单词本、今日复习、词卡编辑和偏好设置共用一个窗口，默认大小均为 **820×600**；切换页面不会改变手动调整后的尺寸。查词页有“单词本”入口，也可从菜单栏打开各页；子页面点“返回”或按 Esc 返回，查词页按 Esc 隐藏窗口。查词快捷键可在偏好设置中修改，**⌘,** 打开偏好设置。
+应用没有 Dock 图标，启动后在菜单栏显示书签图标与待复习数量。查词、多语言翻译、方言词典、单词本、今日复习、词卡编辑和偏好设置共用一个窗口，默认大小均为 **820×600**；切换页面不会改变手动调整后的尺寸。查词页有“单词本”和“翻译”入口，也可从菜单栏打开各页；子页面点“返回”或按 Esc 返回，查词页按 Esc 隐藏窗口。查词快捷键可在偏好设置中修改，**⌘,** 打开偏好设置。
 
 ## 使用
 
@@ -29,6 +29,8 @@ LexiNote 是一款 macOS 菜单栏查词与复习应用。默认按 **⌃⌥L** 
 4. 在“单词本”中搜索、编辑或删除词卡，并用 JSON 导入、导出备份。词卡保存在本机，无需账户。
 5. 默认按 **⌃⌥S** 可从其他应用读取一次剪贴板并将有效英文词条加入单词本；已有词卡会直接打开，没有词典释义时进入手动填写页。
 6. 默认按 **⌃⌥R** 可立即发送一条随机推荐通知；新词和到期复习词沿用自动推荐的交替与近期去重规则。三个全局快捷键都能在偏好设置中修改。
+7. 从查词页或菜单栏打开“多语言翻译”，可选择简体中文、繁体中文、英语、日语、韩语、法语、德语、西班牙语、意大利语、葡萄牙语、俄语、越南语翻译短句；支持自动识别源语言、交换语言、复制译文，实际语向以系统支持为准。此功能使用 macOS 15 及更新版本的设备端系统翻译；首次使用某种语言时，系统可能要求下载语言包。译文不会自动加入单词本。
+8. “方言词典”支持粤语词条到英语释义（内置 CC-Canto，可离线使用）和闽南语／台语词条到华语释义（在线萌典）。输入方言词语或短语查询；这两个词典不提供任意整句的机器翻译。
 
 新安装默认开启随机推荐，并在首次启动时请求通知权限；升级会保留已有开关状态。关闭“随机推荐通知”也会停用立即推荐快捷键。开启并允许系统通知后，LexiNote 只在电脑活跃使用时累计时间，每约 30–120 分钟随机推荐一条常用中级新词或到期词卡；空闲时暂停计时。手动推荐成功后会重新计算下次自动推荐时间。点击新词通知会先打开预览，只有手动点击“加入单词本”才收藏；点击复习提醒会打开现有词卡。LexiNote 退出后不继续产生新推荐。
 
@@ -36,7 +38,7 @@ LexiNote 是一款 macOS 菜单栏查词与复习应用。默认按 **⌃⌥L** 
 
 ## 词典与构建
 
-内置的 `LexiNote/Resources/ecdict.sqlite` 从 [ECDICT](https://github.com/skywind3000/ECDICT) 固定版本生成，包含约 77 万条词目；许可文本见 `Licenses/ECDICT-LICENSE`，并随应用打包。需要重新生成数据库时运行 `python3 Scripts/build_ecdict.py`，脚本会校验源 CSV 的 SHA-256。英文在线结果优先来自 [Free Dictionary API](https://dictionaryapi.dev/)，失败时回退到 [EnglishDictionaryAPI](https://englishdictionaryapi.com/)；后者使用 [Wiktionary 的 CC BY-SA 4.0 内容](https://creativecommons.org/licenses/by-sa/4.0/)。词典来源说明随应用打包；网络不可用时，内置词典和已保存的词卡仍可查看。
+内置的 `LexiNote/Resources/ecdict.sqlite` 从 [ECDICT](https://github.com/skywind3000/ECDICT) 固定版本生成，包含约 77 万条词目；许可文本见 `Licenses/ECDICT-LICENSE`，并随应用打包。需要重新生成数据库时运行 `python3 Scripts/build_ecdict.py`，脚本会校验源 CSV 的 SHA-256。英文在线结果优先来自 [Free Dictionary API](https://dictionaryapi.dev/)，失败时回退到 [EnglishDictionaryAPI](https://englishdictionaryapi.com/)；后者使用 [Wiktionary 的 CC BY-SA 4.0 内容](https://creativecommons.org/licenses/by-sa/4.0/)。粤语词条来自 [CC-Canto](https://cc-canto.org/)（CC BY-SA 3.0，许可见 `Licenses/CC-CANTO-LICENSE`），闽南语词条来自[萌典](https://www.moedict.tw/)在线接口。词典来源说明随应用打包；网络不可用时，内置词典和已保存的词卡仍可查看。
 
 ## 后续方向
 
